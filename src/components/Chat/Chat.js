@@ -42,6 +42,7 @@ class Chat extends Component {
           className="input-message"
           onChange={this.changeInputMessage}
           onKeyPress={this.sendMessageOnEnter}
+          value={this.state.messageInput}
         />
       </div>
     );
