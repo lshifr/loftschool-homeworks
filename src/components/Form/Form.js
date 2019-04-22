@@ -27,12 +27,12 @@ const fieldSpec = {
 // Spec for field validation
 const validationSpec = {
   firstname: {
-    value: 'James',
+    value: 'james',
     emtpyMessage: 'Нужно указать имя',
     invalidMessage: 'Имя указано не верно'
   },
   lastname: {
-    value: 'Bond',
+    value: 'bond',
     emtpyMessage: 'Нужно указать фамилию',
     invalidMessage: 'Фамилия указана не верно'
   },
@@ -53,12 +53,9 @@ const objectMap = (obj, fun) =>
   );
 
 // Component for error messages
-const FormFieldError = ({ errorClass, errorMsg }) =>
-  errorMsg ? (
-    <span className={`field__error field-error ${errorClass}`}>{errorMsg}</span>
-  ) : (
-    ''
-  );
+const FormFieldError = ({ errorClass, errorMsg }) => (
+  <span className={`field__error field-error ${errorClass}`}>{errorMsg}</span>
+);
 
 // Component for form field label
 const FormFieldLabel = ({ fieldName, label }) => (
@@ -140,6 +137,7 @@ class Form extends Component {
   // A collection of onChange handlers for child FormIputField components
   onChangeHandlers = objectMap(this.state, key => event => {
     this.setValue(key, event.target.value, () =>
+      // Reset all errors to no-error state
       Object.keys(this.state).forEach(k => this.setError(k, null))
     );
   });
