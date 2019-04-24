@@ -10,7 +10,7 @@ class App extends PureComponent {
   render() {
     return (
       <AuthProvider>
-        <Layout header={Header} footer={Footer}>
+        <Layout header={() => <Header />} footer={() => <Footer />}>
           <AuthConsumer>
             {({ isAuthorized, authorize, authorizeError }) =>
               isAuthorized ? (
