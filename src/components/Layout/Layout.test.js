@@ -27,8 +27,10 @@ describe('Лэйаут без пропсов header и footer', () => {
 });
 
 describe('Лэйаут c пропсом header', () => {
-  const Header = () => <header />;
+  const Header = () => <header className="header" />;
   const wrapper = shallow(<Layout header={Header} />);
+
+  //console.log(wrapper.find('.header').length);
 
   it('Выводит хедер', () => expect(wrapper.find('.header').length).toBe(1));
   it('Не выводит футер', () => expect(wrapper.find('.footer').length).toBe(0));
@@ -51,7 +53,7 @@ describe('Лэйаут c пропсом header', () => {
 });
 
 describe('Лэйаут c пропсом footer', () => {
-  const Footer = () => <footer />;
+  const Footer = () => <footer className="footer" />;
   const wrapper = shallow(<Layout footer={Footer} />);
 
   it('Не выводит хедер', () => expect(wrapper.find('.header').length).toBe(0));
