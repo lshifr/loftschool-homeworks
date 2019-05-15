@@ -6,9 +6,8 @@ class App extends PureComponent {
   render() {
     return (
       <main className="main">
-        <div className="main__cell">
-          <Todo />
-        </div>
+        <div className="main__cell" />
+        <Todo />
       </main>
     );
   }
