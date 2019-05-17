@@ -19,6 +19,8 @@ import { objectMap } from '../../shared/utils';
 import Home from '../Home';
 import InboxList from '../InboxList';
 import OutboxList from '../OutboxList';
+import InboxMail from '../InboxMail';
+import OutboxMail from '../OutboxMail';
 
 const AppLink = ({ clazz, to, children, ...rest }) => (
   <li className={style.navElement}>
@@ -29,7 +31,7 @@ const AppLink = ({ clazz, to, children, ...rest }) => (
 );
 
 const routerSpec = {
-  '/app': { clazz: 't-link-home', name: 'Home', exact: true },
+  '/app': { clazz: 't-link-home', name: 'Home' },
   '/app/inbox': { clazz: 't-link-inbox', name: 'Inbox' },
   '/app/outbox': { clazz: 't-link-outbox', name: 'Outbox' }
 };
@@ -39,17 +41,11 @@ const NavBar = () => {
     <nav className={style.nav}>
       <ul className={`${style.navList} t-nav-list`}>
         {Object.values(
-          objectMap(routerSpec, ({ clazz, name, exact }, path) =>
-            exact ? (
-              <AppLink exact clazz={clazz} to={path} key={path}>
-                {name}
-              </AppLink>
-            ) : (
-              <AppLink clazz={clazz} to={path} key={path}>
-                {name}
-              </AppLink>
-            )
-          )
+          objectMap(routerSpec, ({ clazz, name }, path) => (
+            <AppLink exact clazz={clazz} to={path} key={path}>
+              {name}
+            </AppLink>
+          ))
         )}
       </ul>
     </nav>
@@ -77,8 +73,10 @@ const AppContents = () => {
 
       <Switch>
         <Route path="/app" exact component={Home} />
-        <Route path="/app/inbox" component={InboxList} />
-        <Route path="/app/outbox" component={OutboxList} />
+        <Route path="/app/inbox" exact component={InboxList} />
+        <Route path="/app/outbox" exact component={OutboxList} />
+        <Route path="/app/inbox/:id" component={InboxMail} />
+        <Route path="/app/outbox/:id" component={OutboxMail} />
       </Switch>
     </div>
   );
