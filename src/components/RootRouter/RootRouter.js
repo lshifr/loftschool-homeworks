@@ -6,7 +6,6 @@ import LoginForm from '../LoginForm';
 import AppRouter from '../AppRouter';
 import { AuthProvider } from '../../context/Auth';
 import { DataProvider } from '../../context/Data';
-import style from './Test.module.css';
 
 // Мы оборачиваем наши роуты в несколько провайдеров
 // DataProvider - предоставляет обьект data с имейлами.
@@ -19,10 +18,7 @@ export default () => (
     <AuthProvider>
       <BrowserRouter>
         <Switch>
-          <PrivateRoute
-            path="/app"
-            render={() => <h1 className={style.test}>Hello!</h1>}
-          />
+          <PrivateRoute path="/app" component={AppRouter} />
           <Route
             path="/login"
             render={props => <LoginForm {...props} defaultPath={'/app'} />}
