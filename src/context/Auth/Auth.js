@@ -10,9 +10,9 @@ class AuthProvider extends Component {
     authError: ''
   };
 
-  authorize = (email, password) => {
+  authorize = (email, password, onSuccess) => {
     if (email === this.email && password === this.password) {
-      this.setState({ isAuthorized: true, authError: '' });
+      this.setState({ isAuthorized: true, authError: '' }, () => onSuccess());
     } else {
       this.setState({ authError: 'Почта или пароль не верные' });
     }

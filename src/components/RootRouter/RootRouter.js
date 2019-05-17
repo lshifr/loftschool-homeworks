@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind */
 import React from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import PrivateRoute from '../PrivateRoute';
@@ -5,6 +6,7 @@ import LoginForm from '../LoginForm';
 import AppRouter from '../AppRouter';
 import { AuthProvider } from '../../context/Auth';
 import { DataProvider } from '../../context/Data';
+import style from './Test.module.css';
 
 // Мы оборачиваем наши роуты в несколько провайдеров
 // DataProvider - предоставляет обьект data с имейлами.
@@ -17,6 +19,14 @@ export default () => (
     <AuthProvider>
       <BrowserRouter>
         <Switch>
+          <PrivateRoute
+            path="/app"
+            render={() => <h1 className={style.test}>Hello!</h1>}
+          />
+          <Route
+            path="/login"
+            render={props => <LoginForm {...props} defaultPath={'/app'} />}
+          />
           {/*
             Добавьте роуты /app и /login.
             Роут /app должен быть доступен 
