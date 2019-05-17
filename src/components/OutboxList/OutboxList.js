@@ -10,7 +10,11 @@ import MailList from '../MailList';
 import { withData } from '../../context/Data';
 
 const OutboxList = ({ match, data }) => (
-  <MailList messages={data.outbox} currentPath={match.path} />
+  <MailList
+    messages={data.outbox}
+    currentPath={match.path}
+    clazz="t-outbox-list"
+  />
 );
 
 export default withData(withRouter(OutboxList));

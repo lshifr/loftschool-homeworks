@@ -18,8 +18,8 @@ const MailBrief = ({ mail, currentPath }) => (
   </NavLink>
 );
 
-const MailList = ({ messages, currentPath }) => (
-  <div className={`${style.container} t-outbox-list`}>
+const MailList = ({ messages, currentPath, clazz }) => (
+  <div className={`${style.container} ${clazz}`}>
     {messages.map(msg => (
       <MailBrief mail={msg} currentPath={currentPath} key={msg.id} />
     ))}

@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-bind */
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import PrivateRoute from '../PrivateRoute';
 import LoginForm from '../LoginForm';
 import AppRouter from '../AppRouter';
@@ -23,6 +23,7 @@ export default () => (
             path="/login"
             render={props => <LoginForm {...props} defaultPath={'/app'} />}
           />
+          <Route render={() => <Redirect to="/login" />} />
           {/*
             Добавьте роуты /app и /login.
             Роут /app должен быть доступен 

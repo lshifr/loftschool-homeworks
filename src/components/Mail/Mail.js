@@ -4,9 +4,9 @@
 import React from 'react';
 import style from './Mail.module.css';
 
-const Mail = ({ from, body }) => (
+const Mail = ({ from, body, clazz }) => (
   <div className={style.container}>
-    <p className="t-mail-from">
+    <p className={clazz}>
       From: <b>{from}</b>
     </p>
     <p className="t-mail-body">{body}</p>
