@@ -7,7 +7,7 @@
 
 // Когда пользователь авторизован - перенаправьте его на роут /app
 
-import React, { createRef, forwardRef, Component } from 'react';
+import React, { createRef, Component } from 'react';
 import style from './LoginForm.module.css';
 import { withAuth } from '../../context/Auth';
 import {
