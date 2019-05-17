@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-no-bind */
+
 // Реализуйте роутер приложения.
 // Здесь должны быть обьявлены роуты,
 // которые будут доступны авторизованному пользователю.
@@ -11,16 +13,12 @@
 // используйте стили из AppRouter.module.css
 
 import React from 'react';
-import { Route, Switch, NavLink, withRouter } from 'react-router-dom';
+import { Route, Switch, NavLink } from 'react-router-dom';
 import style from './AppRouter.module.css';
-import homeStyle from '../Home/Home.module.css';
 import { objectMap } from '../../shared/utils';
-
-const Home = () => (
-  <div className={homeStyle.container}>
-    <p className="t-greeting">Приветствуем в почтовом клиенте!</p>
-  </div>
-);
+import Home from '../Home';
+import InboxList from '../InboxList';
+import OutboxList from '../OutboxList';
 
 const AppLink = ({ clazz, to, children, ...rest }) => (
   <li className={style.navElement}>
@@ -58,22 +56,33 @@ const NavBar = () => {
   );
 };
 
-const Inbox = () => <h1>This is inbox</h1>;
+const AppContentsHeader = () => (
+  <Route
+    path="/app/:type?/:id?"
+    render={({ match }) => {
+      const { type } = match.params;
+      return (
+        <h3 className={style.title}>
+          {routerSpec[`/app${type ? `/${type}` : ''}`].name}
+        </h3>
+      );
+    }}
+  />
+);
 
-const Outbox = () => <h1>This is outbox</h1>;
-
-const AppContents = withRouter(({ match }) => {
+const AppContents = () => {
   return (
     <div className={style.content}>
-      <h3 className={style.title}>{routerSpec[match.path].name}</h3>
+      <AppContentsHeader />
+
       <Switch>
         <Route path="/app" exact component={Home} />
-        <Route path="/app/inbox" component={Inbox} />
-        <Route path="/app/outbox" component={Outbox} />
+        <Route path="/app/inbox" component={InboxList} />
+        <Route path="/app/outbox" component={OutboxList} />
       </Switch>
     </div>
   );
-});
+};
 
 const AppRouter = () => (
   <div className={style.wrapper}>
