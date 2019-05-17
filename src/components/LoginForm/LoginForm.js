@@ -10,20 +10,10 @@
 import React, { createRef, forwardRef, Component } from 'react';
 import style from './LoginForm.module.css';
 import { withAuth } from '../../context/Auth';
-
-const objectMap = (obj, f) =>
-  Object.keys(obj).reduce((prev, key) => ({ ...prev, [key]: f(obj[key]) }), {});
-
-const getInputAndRefresh = (refs, callback) => {
-  callback(objectMap(refs, ref => ref.current.value), () => {
-    objectMap(refs, ref => (ref.current.value = '')); // Refresh input fields
-  });
-};
-
-const withProps = props => BaseComponent =>
-  forwardRef((ownerProps, ref) => (
-    <BaseComponent forwardedRef={ref} {...ownerProps} {...props} />
-  ));
+import {
+  withPropsAndForwardedRef,
+  getInputAndRefresh
+} from '../../shared/utils';
 
 const emailInputSpec = {
   name: 'email',
@@ -48,8 +38,8 @@ const FormInput = ({ name, type, className, text, forwardedRef }) => (
   </p>
 );
 
-const EmailInput = withProps(emailInputSpec)(FormInput);
-const PasswordInput = withProps(passwordInputSpec)(FormInput);
+const EmailInput = withPropsAndForwardedRef(emailInputSpec)(FormInput);
+const PasswordInput = withPropsAndForwardedRef(passwordInputSpec)(FormInput);
 
 const SubmitButton = ({ onClick }) => (
   <div className={style.buttons}>
