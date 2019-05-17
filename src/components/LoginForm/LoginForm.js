@@ -55,7 +55,9 @@ class LoginForm extends Component {
 
   redirect = () => {
     const { history, location, defaultPath } = this.props;
-    history.push(location.state.from ? location.state.from : defaultPath);
+    history.push(
+      location.state && location.state.from ? location.state.from : defaultPath
+    );
   };
 
   onSubmit = () => {
