@@ -50,6 +50,28 @@ function changeOrderPosition(state, orderId, direction, check) {
   );
 }
 
+function addIngredientToTopOrder(state, position, ingredient) {
+  const orders = filterOrders(state, position);
+  if (orders.length === 0) {
+    return state;
+  }
+  const currentOrder = orders[0];
+  if (
+    !currentOrder.recipe.includes(ingredient) ||
+    currentOrder.ingredients.includes(ingredient)
+  ) {
+    return state;
+  }
+  return replaceElement(
+    state,
+    {
+      ...currentOrder,
+      ingredients: [...currentOrder.ingredients, ingredient]
+    },
+    state.indexOf(currentOrder)
+  );
+}
+
 export default (state = [], action) => {
   switch (action.type) {
     case CREATE_NEW_ORDER:
@@ -57,27 +79,11 @@ export default (state = [], action) => {
         { ...action.payload, position: 'clients', ingredients: [] },
         ...state
       ];
+
     case ADD_INGREDIENT:
       const { from, ingredient } = action.payload;
-      const orders = filterOrders(state, from);
-      if (orders.length === 0) {
-        return state;
-      }
-      const currentOrder = orders[0];
-      if (
-        !currentOrder.recipe.includes(ingredient) ||
-        currentOrder.ingredients.includes(ingredient)
-      ) {
-        return state;
-      }
-      return replaceElement(
-        state,
-        {
-          ...currentOrder,
-          ingredients: [...currentOrder.ingredients, ingredient]
-        },
-        state.indexOf(currentOrder)
-      );
+      return addIngredientToTopOrder(state, from, ingredient);
+
     case MOVE_ORDER_NEXT:
       return changeOrderPosition(
         state,
